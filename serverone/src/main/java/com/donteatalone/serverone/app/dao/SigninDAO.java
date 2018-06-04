@@ -26,7 +26,7 @@ public class SigninDAO implements ISigninDAO{
 		String sql = "INSERT into Login(email, password) values(?, ?)";
 		jdbcTemplate.update(sql, user.getEmailId(), user.getPasskey());
 		
-		sql = "SELECT user_id FROM Login where email = ? AND password = ?";
+		sql = "SELECT id FROM Login where email = ? AND password = ?";
 		int user_id = jdbcTemplate.queryForObject(sql, Integer.class, user.getEmailId(), user.getPasskey());
 		user.setUser_id(user_id);
 		return true;
