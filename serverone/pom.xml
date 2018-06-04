@@ -57,6 +57,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -67,6 +68,8 @@
             <artifactId>log4j-core</artifactId>
             <version>2.11.0</version>
         </dependency>
+=======
+>>>>>>> 682fc7f12a6678bb63b71ee256554535d4ba90ea
 	</dependencies>
 
 	<build>
