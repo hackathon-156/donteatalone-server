@@ -2,6 +2,7 @@ package com.donteatalone.serverone.app.service;
 
 import com.donteatalone.serverone.app.entity.BackendResponse;
 import com.donteatalone.serverone.app.entity.SigninEntity;
+import com.donteatalone.serverone.utils.ErrorCodes;
 import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,16 +27,23 @@ public class SigninService implements ISigninService{
         BackendResponse response = new BackendResponse();
         boolean isSuccessful;
         try {
-            isSuccessful = signinDAO.signupUser(signinEntity)
+            isSuccessful = signinDAO.signupUser(signinEntity);
         } catch (IllegalArgumentException e) {
-            logger.info("Illegal Argument Exception during signup, User already exists.");
-            response.setStatusCode(200);
+            String msg = "Illegal Argument Exception during signup, User already exists.";
+            logger.info(msg);
+            response.setStatusCode(ErrorCodes.USER_ALREADY_EXISTS);
+            response.setMessage(msg);
+            response.setResponseObject(signinEntity);
+            return response;
         }
-        return isSuccessful;
+        response.setMessage("success");
+        response.setStatusCode(200);
+        response.setResponseObject(signinEntity);
+        return response;
     }
 
-    public boolean signin(String login, String password) {
-        //call dao with the method.
-        return true;
+    public BackendResponse signin(SigninEntity signinEntity) {
+        //To do.
+        return null;
     }
 }
