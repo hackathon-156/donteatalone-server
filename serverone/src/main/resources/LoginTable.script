@@ -1,4 +1,3 @@
-create database donteatalone;
 use donteatalone;
 create table IF NOT EXISTS Login (
 id INT(11) NOT NULL AUTO_INCREMENT,

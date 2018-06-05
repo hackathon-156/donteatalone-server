@@ -15,6 +15,11 @@ public class SigninController {
     @Autowired
     private SigninService signinService;
 
+    @RequestMapping("/")
+    public String welcome() {
+        return "Welcome";
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
     public BackendResponse signup(@RequestBody SigninEntity entity) {
         return signinService.signup(entity);
