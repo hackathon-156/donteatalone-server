@@ -27,10 +27,10 @@ public class SigninDAO implements ISigninDAO{
 		if(existsUser(user))
 			throw new IllegalArgumentException("User already exists");
 		String sql = "INSERT into Login(email, password) values(?, ?)";
+		StringBuilder sb = new StringBuilder();
 		try{
 			MessageDigest m = MessageDigest.getInstance("SHA-512");
 			byte[] bytes = m.digest(user.getPasskey().getBytes());
-			StringBuilder sb = new StringBuilder();
 	        for(int i=0; i< bytes.length ;i++){
 	        	sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 	        }
@@ -39,7 +39,7 @@ public class SigninDAO implements ISigninDAO{
 			throw new IllegalArgumentException("Unable to hash password using SHA-512", e);
 		}
 		sql = "SELECT id FROM Login where email = ? AND password = ?";
-		int user_id = jdbcTemplate.queryForObject(sql, Integer.class, user.getEmailId(), user.getPasskey());
+		int user_id = jdbcTemplate.queryForObject(sql, Integer.class, user.getEmailId(), sb.toString());
 		user.setUser_id(user_id);
 		return true;
 	}
@@ -60,7 +60,7 @@ public class SigninDAO implements ISigninDAO{
 			throw new IllegalArgumentException("Unable to hash password using SHA-512", e);
 		}
 		if(count == -1) {
-			throw new IllegalArgumentException("Unable to execute query on the table");
+			throw new IllegalArgumentException("Unable to retrieve data");
 		} else if(count == 0)
 			return false;
 		else
