@@ -43,7 +43,16 @@ public class SigninService implements ISigninService{
     }
 
     public BackendResponse signin(SigninEntity signinEntity) {
-        //To do.
-        return null;
+        BackendResponse response = new BackendResponse();
+        boolean isSuccessful = signinDAO.existsUser(signinEntity);
+        if(isSuccessful) {
+            logger.info("Login Successful for userId:"+signinEntity.getEmailId());
+            response.setMessage("Success.");
+        } else {
+            response.setMessage("Invalid User name and/or password.");
+        }
+        response.setStatusCode(200);
+        response.setResponseObject(signinEntity);
+        return response;
     }
 }
