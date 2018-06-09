@@ -1,0 +1,7 @@
+use donteatalone;
+create table IF NOT EXISTS Login (
+id INT(11) NOT NULL AUTO_INCREMENT,
+email VARCHAR(50) NOT NULL,
+password CHAR(128) NOT NULL,
+PRIMARY KEY (id)
+);
